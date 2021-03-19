@@ -603,16 +603,31 @@
         <div class="row gy-4">
 
           <div class="col-lg-12">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="https://formspree.io/f/xoqpggbp" method="post" class="php-email-form">
               <div class="row gy-4">
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                <div class="col-md-12">
+                  <input type="text" name="name" class="form-control" id="full-name" placeholder="Your Name" required>
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                  <input type="email" class="form-control" name="email" id="email-address" placeholder="Your Email" required>
                 </div>
+
+                <div class="col-md-6 ">
+                  <input type="telephone" class="form-control" name="telephone" id="telephone" placeholder="(555) 555-5555" required>
+                </div>
+
+                <div class="col-md-12">
+                  
+                  <select class="form-control" name="department" id="department" required="">
+                    <option value="Select" selected="" disabled="">Select your package</option>
+                    <option value="Front Desk">Starter</option>
+                    <option value="Customer Care">Professional Plan</option>
+                    <option value="Shipping Receiving">Ultimate</option>
+                  </select>
+                </div>
+                
 
                 <div class="col-md-12">
                   <input type="text" class="form-control" name="subject" placeholder="Subject" required>
@@ -632,7 +647,6 @@
 
               </div>
             </form>
-
           </div>
 
 <!--           <div class="col-lg-12 text-center">
