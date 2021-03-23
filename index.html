@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="assets/cookieconsent/cookieconsent.js"></script>
+<!-- <script src="assets/cookieconsent/cookieconsent.js"></script> -->
 
 <head>
   <meta charset="utf-8">
@@ -35,6 +35,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <link rel="stylesheet" href="assets/dist/cookieconsent.css">
 </head>
 
 <body>
@@ -767,121 +769,108 @@ World class resume writing, Linkedin makeover and interview coaching</p>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NTZHF3KE0J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script src="assets/dist/cookieconsent.js"></script>
 
-  gtag('config', 'G-NTZHF3KE0J');
-</script>
   <script>
-  window.CookieConsent.init({
-    // More link URL on bar
-    modalMainTextMoreLink: null,
-    // How lond to wait until bar comes up
-    barTimeout: 1000,
-    // Look and feel
-    theme: {
-      barColor: '#2C7CBF',
-      barTextColor: '#FFF',
-      barMainButtonColor: '#FFF',
-      barMainButtonTextColor: '#2C7CBF',
-      modalMainButtonColor: '#4285F4',
-      modalMainButtonTextColor: '#FFF',
-    },
-    language: {
-      // Current language
-      current: 'en',
-      locale: {
-        en: {
-          barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
-          barLinkSetting: 'Cookie Settings',
-          barBtnAcceptAll: 'Accept all cookies',
-          modalMainTitle: 'Cookie settings',
-          modalMainText: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
-          modalBtnSave: 'Save current settings',
-          modalBtnAcceptAll: 'Accept all cookies and close',
-          modalAffectedSolutions: 'Affected solutions:',
-          learnMore: 'Learn More',
-          on: 'On',
-          off: 'Off',
+  // obtain cookieconsent plugin
+var cc = initCookieConsent();
+
+// run plugin with config object
+cc.run({
+    autorun : true,               
+    delay : 0,
+    current_lang : 'en',
+    theme_css : "../src/cookieconsent.css",   
+    autoclear_cookies : true, 
+    autoload_css : true, 
+    cookie_expiration : 365,  
+    
+    onAccept: function(cookies){        
+        if(cc.allowedCategory('analytics_cookies')){
+            cc.loadScript('https://www.google-analytics.com/analytics.js', function(){    
+                ga('create', 'G-NTZHF3KE0J', 'auto');  //replace UA-XXXXXXXX-Y with your tracking code
+                ga('send', 'pageview');
+            });
         }
-      }
     },
-    // List all the categories you want to display
-    categories: {
-      // Unique name
-      // This probably will be the default category
-      necessary: {
-        // The cookies here are necessary and category cant be turned off.
-        // Wanted config value  will be ignored.
-        needed: true,
-        // The cookies in this category will be let trough.
-        // This probably should be false if not necessary category
-        wanted: true,
-        // If the checkbox is on or off at first run.
-        checked: true,
-        // Language settings for categories
-        language: {
-          locale: {
-            en: {
-              name: 'Strictly Necessary Cookies',
-              description: 'Cookies help us provide better experience and improve our servies to better help you.',
+    
+    languages : {
+        en : {  
+            consent_modal : {
+                title :  "I use cookies",
+                description :  'Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only upon approval. <a aria-label="Cookie policy" class="cc-link" href="#">Read more</a>',
+                primary_btn: {
+                    text: 'Accept',
+                    role: 'accept_all'        //'accept_selected' or 'accept_all'
+                },
+                secondary_btn: {
+                    text : 'Settings',
+                    role : 'settings'       //'settings' or 'accept_necessary'
+                }
             },
-            hu: {
-              name: 'Szükséges sütik',
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+            settings_modal : {
+                title : 'Cookie preferences',
+                save_settings_btn : "Save settings",
+                accept_all_btn : "Accept all",
+                cookie_table_headers : [
+                    {col1: "Name" }, 
+                    {col2: "Domain" }, 
+                    {col3: "Expiration" }, 
+                    {col4: "Description" }, 
+                    {col5: "Type" }
+                ],
+                blocks : [
+                    {
+                        title : "Cookie usage",
+                        description: 'I use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want.'
+                    },{
+                        title : "Strictly necessary cookies",
+                        description: 'These cookies are essential for the proper functioning of my website. Without these cookies, the website would not work properly.',
+                        toggle : {
+                            value : 'necessary_cookies',
+                            enabled : true,
+                            readonly: true
+                        }
+                    },{
+                        title : "Analytics cookies",
+                        description: 'These cookies cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you.',
+                        toggle : {
+                            value : 'analytics_cookies',
+                            enabled : false,
+                            readonly: false
+                        },
+                        cookie_table: [
+                            {
+                                col1: '_ga',
+                                col2: 'google.com',
+                                col3: '2 years',
+                                col4: 'description ...' ,
+                                col5: 'Permanent cookie'
+                            },
+                            {
+                                col1: '_gat',
+                                col2: 'google.com',
+                                col3: '1 minute',
+                                col4: 'description ...' ,
+                                col5: 'Permanent cookie'
+                            },
+                            {
+                                col1: '_gid',
+                                col2: 'google.com',
+                                col3: '1 day',
+                                col4: 'description ...' ,
+                                col5: 'Permanent cookie'
+                            }
+                        ]
+                    },{
+                        title : "More information",
+                        description: 'For any queries in relation to my policy on cookies and your choices, please <a class="cc-link" href="#yourwebsite">contact me</a>.',
+                    }
+                ]
             }
-          }
         }
-      }
-    },
-    // List actual services here
-    services: {
-      // Unique name
-      analytics: {
-        // Existing category Unique name
-        // This example shows how to block Google Analytics
-        category: 'necessary',
-        // Type of blocking to apply here.
-        // This depends on the type of script we are trying to block
-        // Can be: dynamic-script, script-tag, wrapped, localcookie
-        type: 'dynamic-script',
-        // Only needed if "type: dynamic-script"
-        // The filter will look for this keyword in inserted scipt tags
-        // and block if match found
-        search: 'analytics',
-        // List of known cookie names or Regular expressions matching
-        // cookie names placed by this service.
-        // These willbe removed from current domain and .domain.
-        cookies: [
-          {
-            // Known cookie name.
-            name: '_gid',
-            // Expected cookie domain.
-            domain: `.${window.location.hostname}`
-          },
-          {
-            // Regex matching cookie name.
-            name: /^_ga/,
-            domain: `.${window.location.hostname}`
-          }
-        ],
-        language: {
-          locale: {
-            en: {
-              name: 'Google Analytics'
-            },
-            hu: {
-              name: 'Google Analytics'
-            }
-          }
-        }
-      }
     }
-  });
+});
   </script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -893,6 +882,9 @@ World class resume writing, Linkedin makeover and interview coaching</p>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+
 
 </body>
 
